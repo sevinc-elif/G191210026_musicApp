@@ -1,8 +1,23 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@model HomePageViewModel
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="card mx-auto" style="width: 500px; margin-left: 300px; border: 2px solid blue; padding:7px;border-radius:10px">
+    <div class="card-header">
+
+    </div>
+    <div class="card-body">
+        <form asp-controller="Home" asp-action="Index" method="POST">
+            <div asp-validation-summary="All"></div>
+            <div class="form-group">
+                <label asp-for="@Model.Email">Eposta</label>
+                <input asp-for="Email" class="form-control">
+            </div>
+            <div class="form-group">
+                <div class="password">
+                    <label asp-for="@Model.Password">Şifre</label>
+                    <input type="password" asp-for="Password" class="form-control">
+                </div>
+            </div>
+            <input type="submit" value="Giriş Yap" class="btn btn-primary btn-block">
+        </form>
+    </div>
 </div>

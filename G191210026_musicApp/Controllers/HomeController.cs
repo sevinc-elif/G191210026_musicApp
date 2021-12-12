@@ -1,4 +1,6 @@
-﻿using G191210026_musicApp.Models;
+﻿using G191210026_musicApp.Data;
+using G191210026_musicApp.Entity;
+using G191210026_musicApp.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -11,23 +13,39 @@ namespace G191210026_musicApp.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly MusicContext _context;
+        public HomeController(MusicContext context)
         {
-            _logger = logger;
+            _context = context;
         }
 
+        [HttpGet]
         public IActionResult Index()
         {
             return View();
         }
-
-        
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        [HttpPost]
+        public IActionResult Index(User user)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            var model = new HomePageViewModel()
+            {
+                Email = user.Email,
+                Password = user.Password
+            };
+
+            var bilgi = _context.Users.FirstOrDefault(x => x.Email == user.Email && x.Password == user.Password);
+            if (bilgi != null)
+            {
+                
+                return RedirectToAction("Index", "Music");
+            }
+            else
+            {
+                ModelState.AddModelError("", "Email veya şifre hatalı!");
+            }
+            return View();
         }
+
+
     }
 }
