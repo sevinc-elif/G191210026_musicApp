@@ -12,5 +12,11 @@ namespace G191210026_musicApp.Controllers
         {
             return View();
         }
+
+        public IActionResult MusicList()
+        {
+
+            return View();
+        }
     }
 }
