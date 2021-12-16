@@ -1,1 +1,33 @@
-﻿@await Html.PartialAsync("_navbar")
+﻿@model MusicsViewModel
+@await Html.PartialAsync("_navbar")
+<div>
+    @if (Model.Musics.Count > 0)
+    {
+        @foreach (var music in Model.Musics)
+        {
+            <div class="card mb-3" style="max-width: 540px;">
+                <div class="row g-0">
+                    <div class="col-md-3">
+                        <img src="/img/@music.ImageUrl" class="img-fluid rounded-start" alt="@music.MusicName">
+                    </div>
+                    <div class="col-md-9">
+                        <div class="card-body">
+                            <h5 class="card-title">@music.MusicName</h5>
+                            <div>
+                                
+                                @music.Singer
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        }
+    }
+    else
+    {
+        <div class="alert alert-warning">
+            Müzik bulunamadı.
+        </div>
+    }
+</div>
