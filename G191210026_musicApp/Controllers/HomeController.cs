@@ -24,27 +24,6 @@ namespace G191210026_musicApp.Controllers
         {
             return View();
         }
-        [HttpPost]
-        public IActionResult Index(User user)
-        {
-            var model = new HomePageViewModel()
-            {
-                Email = user.Email,
-                Password = user.Password
-            };
-
-            var bilgi = _context.Users.FirstOrDefault(x => x.Email == user.Email && x.Password == user.Password);
-            if (bilgi != null)
-            {
-                
-                return RedirectToAction("Index", "Music");
-            }
-            else
-            {
-                ModelState.AddModelError("", "Email veya şifre hatalı!");
-            }
-            return View();
-        }
 
 
     }

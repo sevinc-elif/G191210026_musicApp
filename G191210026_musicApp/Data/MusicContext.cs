@@ -14,6 +14,7 @@ namespace G191210026_musicApp.Data
 
         }
         public DbSet<User> Users { get; set; }
+
         public DbSet<Music> Musics { get; set; }
         public DbSet<Genre> Genres { get; set; }
 

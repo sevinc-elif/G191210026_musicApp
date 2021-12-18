@@ -10,9 +10,25 @@
 <body>
     
     <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
+        @if (IsSectionDefined("menu"))
+        {
+            <div class="row">
+                <div class="col-md-3">
+                    @RenderSection("menu", required: false)
+                </div>
+                <div class="col-md-9">
+                    @RenderBody()
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="row">
+                <div class="col-md-12">
+                    @RenderBody()
+                </div>
+            </div>
+        }
     </div>
 
     

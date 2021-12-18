@@ -1,6 +1,7 @@
 ﻿using G191210026_musicApp.Data;
 using G191210026_musicApp.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,22 +21,27 @@ namespace G191210026_musicApp.Controllers
             return View();
         }
 
-        public IActionResult MusicList()
+        public IActionResult MusicList(int? id, string q)
         {
-            return View(new MusicsViewModel
+            var musics = _context.Musics.AsQueryable();
+            if (id != null)
             {
-                Musics = _context.Musics
-                .Select(m => new MusicViewModel
-                {
-                    MusicId=m.MusicId,
-                    MusicName=m.MusicName,
-                    Singer=m.Singer,
-                    ImageUrl=m.ImageUrl
+                musics = musics
+                    .Include(m => m.Genres)
+                    .Where(m => m.Genres.Any(g => g.GenreId == id));
+            }
+            if (!string.IsNullOrEmpty(q))
+            {
+                musics = musics.Where(i => i.MusicName.ToLower().Contains(q.ToLower())
+                || i.Singer.ToLower().Contains(q.ToLower()));
+            }
+            var model = new MusicsViewModel()
+            {
+                Musics = musics.ToList()
 
-                })
-                .ToList()
-            });
-            
+            };
+            return View(model);
+
         }
     }
 }
