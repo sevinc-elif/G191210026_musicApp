@@ -1,0 +1,39 @@
+﻿@model AdminEditMusicViewModel
+@await Html.PartialAsync("_navbar")
+
+<h1>Müzik Ekle</h1>
+<hr />
+<form method="post" asp-controller="Admin" asp-action="MusicCreate">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="mb-3">
+                <label asp-for="MusicName">Müzik Adı</label>
+                <input asp-for="MusicName" class="form-control" />
+                <span asp-validation-for="MusicName" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Singer">Şarkıcı</label>
+                <textarea asp-for="Singer" class="form-control"></textarea>
+                <span asp-validation-for="Singer" class="text-danger"></span>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Ekle</button>
+        </div>
+
+        <div class="col-md-4">
+
+            @foreach (var item in (List<Genre>)ViewBag.Genres)
+            {
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="genreIds"
+                           value="@item.GenreId" id="genre_@(item.GenreId)">
+                    <label class="form-check-label" for="genre_@(item.GenreId)">
+                        @item.GenreName
+                    </label>
+                </div>
+            }
+
+
+        </div>
+    </div>
+</form>

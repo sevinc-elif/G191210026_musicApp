@@ -5,23 +5,21 @@
     {
         @foreach (var music in Model.Musics)
         {
-            <div class="card mb-3" style="max-width: 540px;">
+            <div class="card mb-3" style="max-width: 800px;">
                 <div class="row g-0">
-                    <div class="col-md-3">
-                        <img src="/img/@music.ImageUrl" style="width:200px;height:120px" class="img-fluid rounded-start" alt="@music.MusicName">
+                    <div class="col-md-4">
+                        <img src="/img/@music.ImageUrl" style="width:180px;height:120px" class="img-fluid rounded-start" alt="@music.MusicName">
                     </div>
-                    <div class="col-md-9">
+                    <div class="col-md-8">
                         <div class="card-body">
                             <h5 class="card-title">@music.MusicName</h5>
                             <div>
-
                                 @music.Singer
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
         }
     }
     else
@@ -33,6 +31,5 @@
 </div>
 
 @section menu{
-    @*@await Html.PartialAsync("_menu",Model.Genres)*@
     @await Component.InvokeAsync("Genres")
 }

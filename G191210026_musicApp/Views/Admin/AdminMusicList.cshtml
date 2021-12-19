@@ -1,0 +1,41 @@
+﻿@model AdminMusicsViewModel
+@await Html.PartialAsync("_navbar")
+<h1>Admin Müzik Listesi</h1>
+<table class="table table-striped table-hover table-bordered">
+    <thead>
+        <tr>
+            <th style="width:30px">#</th>
+            <th style="width:100px">Fotoğraf</th>
+            <th>Müzik Adı</th>
+            <th style="width:250px">Şarkıcı</th>
+            <th style="width:250px">Türler</th>
+            <th style="width:100px"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var music in Model.Musics)
+        {
+            <tr>
+                <td>@music.MusicId</td>
+                <td> <img src="~/img/@music.ImageUrl" width="80" /> </td>
+                <td>@music.MusicName</td>
+                <td>@music.Singer</td>
+                <td>
+                    <ul>
+                        @foreach (var genre in music.Genres)
+                        {
+                            <li>@genre.GenreName</li>
+                        }
+                    </ul>
+                </td>
+                <td>
+                    @*<a href="/admin/movieupdate/@movie.MovieId" class="btn btn-primary btn-sm">Update</a>*@
+                    <form action="/admin/musicdelete" method="post" style="display:inline;">
+                        <input type="hidden" name="genreId" value="@music.MusicId" />
+                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
