@@ -29,10 +29,10 @@
                     </ul>
                 </td>
                 <td>
-                    @*<a href="/admin/movieupdate/@movie.MovieId" class="btn btn-primary btn-sm">Update</a>*@
-                    <form action="/admin/musicdelete" method="post" style="display:inline;">
-                        <input type="hidden" name="genreId" value="@music.MusicId" />
-                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    
+                    <form action="/Admin/MusicDelete" method="post" style="display:inline">
+                        <input type="hidden" name="musicId" value="@music.MusicId" />
+                        <button type="submit" class="btn btn-danger btn-sm">Sil</button>
                     </form>
                 </td>
             </tr>

@@ -46,8 +46,7 @@ namespace G191210026_musicApp.Controllers
         [HttpPost]
         public IActionResult MusicCreate(Music m,int[] genreIds)
         {
-            if (ModelState.IsValid)
-            {
+            
                 m.Genres = new List<Genre>();
                 foreach (var id in genreIds)
                 {
@@ -56,9 +55,7 @@ namespace G191210026_musicApp.Controllers
                 _context.Musics.Add(m);
                 _context.SaveChanges();
                 return RedirectToAction("AdminMusicList","Admin");
-            }
-            ViewBag.Genres = _context.Genres.ToList();
-            return View();
+            
         }
 
         
@@ -71,7 +68,7 @@ namespace G191210026_musicApp.Controllers
                 _context.Musics.Remove(entity);
                 _context.SaveChanges();
             }
-            return RedirectToAction("AdminMusicList");
+            return RedirectToAction("AdminMusicList","Admin");
         }
 
     }

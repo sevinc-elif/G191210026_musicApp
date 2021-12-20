@@ -15,7 +15,10 @@ namespace G191210026_musicApp.Entity
         public string Singer { get; set; }
 
         public string ImageUrl { get; set; }
+
+        public int FavCount { get; set; }
         [Required]
         public List<Genre> Genres { get; set; }
+
     }
 }

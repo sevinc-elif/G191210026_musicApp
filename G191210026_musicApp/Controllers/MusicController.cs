@@ -18,7 +18,13 @@ namespace G191210026_musicApp.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+            var bilgi = _context.Musics.OrderByDescending(i => i.FavCount).Take(10);
+            var model = new MusicsViewModel()
+            {
+                Musics = bilgi.ToList()
+
+            };
+            return View(model);
         }
 
         public IActionResult MusicList(int? id, string q)
@@ -42,6 +48,18 @@ namespace G191210026_musicApp.Controllers
             };
             return View(model);
 
+        }
+        [HttpPost]
+        public IActionResult MusicFav(int musicId)
+        {
+            var entity = _context.Musics.Find(musicId);
+            if (entity != null)
+            {
+
+                entity.FavCount += 1;
+                _context.SaveChanges();
+            }
+            return RedirectToAction("MusicList","Music");
         }
     }
 }

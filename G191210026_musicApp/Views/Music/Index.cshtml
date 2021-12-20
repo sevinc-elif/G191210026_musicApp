@@ -1,1 +1,29 @@
-﻿@await Html.PartialAsync("_navbar")
+﻿@model MusicsViewModel
+@await Html.PartialAsync("_navbar")
+<h2>En Çok Beğeni Alan 10 Müzik</h2>
+<hr />
+@foreach (var music in Model.Musics)
+{
+    
+        <div class="card mb-3" style="max-width: 600px">
+            <div class="row g-0">
+
+                <div class="col-md-3">
+                    <img src="/img/@music.ImageUrl" style="width:180px;height:120px" class="img-fluid rounded-start" alt="@music.MusicName">
+                </div>
+                <div class="col-md-6">
+                    <div class="card-body">
+                        <h5 class="card-title">@music.MusicName</h5>
+                        <div>
+                            @music.Singer
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3" style="text-align:center;margin-top:50px">
+                    Beğeni Sayısı: @music.FavCount
+                </div>
+            </div>
+        </div>
+    
+}
+  

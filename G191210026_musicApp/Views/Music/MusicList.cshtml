@@ -10,13 +10,19 @@
                     <div class="col-md-4">
                         <img src="/img/@music.ImageUrl" style="width:180px;height:120px" class="img-fluid rounded-start" alt="@music.MusicName">
                     </div>
-                    <div class="col-md-8">
+                    <div class="col-md-6">
                         <div class="card-body">
                             <h5 class="card-title">@music.MusicName</h5>
                             <div>
                                 @music.Singer
                             </div>
                         </div>
+                    </div>
+                    <div class="col-md-2"style="top:50px">
+                        <form action="/Music/MusicFav" method="post" style="display:inline">
+                            <input type="hidden" name="musicId" value="@music.MusicId" />
+                            <button type="submit" class="btn btn-danger btn-sm">Beğen</button>
+                        </form>
                     </div>
                 </div>
             </div>
