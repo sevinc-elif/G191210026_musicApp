@@ -1,6 +1,7 @@
 ﻿using G191210026_musicApp.Data;
 using G191210026_musicApp.Entity;
 using G191210026_musicApp.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace G191210026_musicApp.Controllers
 {
+    
     public class AdminController : Controller
     {
         private readonly MusicContext _context;

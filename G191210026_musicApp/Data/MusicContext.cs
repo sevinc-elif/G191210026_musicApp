@@ -1,4 +1,5 @@
 ﻿using G191210026_musicApp.Entity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -7,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace G191210026_musicApp.Data
 {
-    public class MusicContext: DbContext
+    public class MusicContext: IdentityDbContext<User>
     {
         public MusicContext(DbContextOptions<MusicContext> options) : base(options)
         {
 
         }
-        public DbSet<User> Users { get; set; }
+        
 
         public DbSet<Music> Musics { get; set; }
         public DbSet<Genre> Genres { get; set; }

@@ -33,6 +33,10 @@ namespace G191210026_musicApp
             services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<MusicContext>()
                 .AddDefaultTokenProviders();
+
+
+           
+
             services.AddControllersWithViews();
         }
 
