@@ -13,6 +13,6 @@ namespace G191210026_musicApp.Models
 
         [Required]
         [DataType(DataType.Password)]
-        public string PasswordHash { get; set; }
+        public string Password { get; set; }
     }
 }

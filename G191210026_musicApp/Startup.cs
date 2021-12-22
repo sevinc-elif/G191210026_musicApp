@@ -30,7 +30,18 @@ namespace G191210026_musicApp
             services.AddDbContext<MusicContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("MsSQLConnection")));
 
-            services.AddIdentity<User, IdentityRole>()
+            services.AddIdentity<User, IdentityRole>(options=>
+            {
+                options.User.AllowedUserNameCharacters = "@.qwertyuýopðüasdfghjklþizxcvbnmöç0123456789";
+
+                options.Password.RequiredLength = 3;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireDigit = false;
+                
+            })
+            
                 .AddEntityFrameworkStores<MusicContext>()
                 .AddDefaultTokenProviders();
 

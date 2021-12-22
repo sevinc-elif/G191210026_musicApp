@@ -8,5 +8,6 @@ namespace G191210026_musicApp.Entity
 {
     public class User:IdentityUser
     {
+
     }
 }
