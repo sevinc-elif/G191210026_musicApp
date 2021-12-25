@@ -1,0 +1,20 @@
+﻿@model Comment
+
+<form method="post" asp-controller="Music" asp-action="AddComment">
+    <div class="row">
+        <div class="col-md-8">
+            <input type="hidden" name="MusicId" value="@Model.MusicId" />
+            <div class="mb-3">
+                <label asp-for="Comments">Yorumunuz</label>
+                <textarea asp-for="Comments" class="form-control"></textarea>
+                <span asp-validation-for="Comments" class="text-danger"></span>
+            </div>
+
+
+            <button type="submit" class="btn btn-primary">Ekle</button>
+        </div>
+
+        
+    </div>
+</form>
+

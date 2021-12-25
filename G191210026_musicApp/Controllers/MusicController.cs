@@ -1,4 +1,5 @@
 ﻿using G191210026_musicApp.Data;
+using G191210026_musicApp.Entity;
 using G191210026_musicApp.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace G191210026_musicApp.Controllers
 {
-    
+    [Authorize]
     public class MusicController : Controller
     {
         private readonly MusicContext _context;
@@ -63,5 +64,33 @@ namespace G191210026_musicApp.Controllers
             }
             return RedirectToAction("MusicList","Music");
         }
+
+        public IActionResult AddComment()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult AddComment(Comment comment)
+        {
+            comment.DateTime = DateTime.Now;
+            _context.Comments.Add(comment);
+            _context.SaveChanges();
+            return RedirectToAction("Comment", "Music", new { @id = comment.MusicId });
+            
+        }
+        //public IActionResult Comment(int musicId)
+        //{
+            
+        //    var comments = _context.Comments.AsQueryable();
+                
+            
+        //    var model = new CommentsViewModel()
+        //    {
+        //        Comments = comments.ToList()
+
+        //    };
+        //    return View(model);
+            
+        //}
     }
 }

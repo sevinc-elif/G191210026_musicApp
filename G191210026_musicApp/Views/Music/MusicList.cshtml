@@ -5,12 +5,12 @@
     {
         @foreach (var music in Model.Musics)
         {
-            <div class="card mb-3" style="max-width: 800px;">
+            <div class="card mb-3" style="max-width: 900px;">
                 <div class="row g-0">
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <img src="/img/@music.ImageUrl" style="width:180px;height:120px" class="img-fluid rounded-start" alt="@music.MusicName">
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="card-body">
                             <h5 class="card-title">@music.MusicName</h5>
                             <div>
@@ -18,12 +18,21 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-2"style="top:50px">
+                    <div class="col-md-1" style="top:50px">
                         <form action="/Music/MusicFav" method="post" style="display:inline">
                             <input type="hidden" name="musicId" value="@music.MusicId" />
                             <button type="submit" class="btn btn-danger btn-sm">Beğen</button>
                         </form>
                     </div>
+                    <div class="col-md-2" style="top:50px">
+                        <a class="btn btn-primary btn-sm" asp-controller="Music" asp-action="AddComment" asp-route-id="@music.MusicId">Yorum Yap</a>
+
+                    </div>
+                    <div class="col-md-1" style="top:50px">
+                        <a class="btn btn-primary btn-sm" asp-controller="Music" asp-action="Comment" asp-route-id="@music.MusicId">Yorumlar</a>
+
+                    </div>
+
                 </div>
             </div>
         }

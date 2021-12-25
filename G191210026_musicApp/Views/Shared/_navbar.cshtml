@@ -1,23 +1,5 @@
 ﻿
-@*<header>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-        <div class="container">
-            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Ana Sayfa</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                <ul class="navbar-nav flex-grow-1">
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                    </li>
 
-                </ul>
-            </div>
-        </div>
-    </nav>
-</header>*@
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container">
@@ -25,19 +7,45 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarToggler">
-            <a href="/Music/Index" class="navbar-brand">Ana Sayfa</a>
+            
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item ">
-                    <a href="/Music/MusicList" class="nav-link">Müzikler</a>
-                </li>
-                <li class="nav-item ">
-                    <a href="/Admin/MusicCreate" class="nav-link">Müzik Ekle</a>
-                </li>
-                <li class="nav-item ">
-                    <a href="/Admin/AdminMusicList" class="nav-link">Admin Müzik Listesi</a>
-                </li>
-            </ul>
+                @if (User.Identity.IsAuthenticated)
+                {
 
-        </div>
+
+                    <li class="nav-item ">
+                        <a href="/Music/Index" class="nav-link">Ana Sayfa</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a href="/Music/MusicList" class="nav-link">Müzikler</a>
+                    </li>
+                    if (User.IsInRole("admin"))
+                    {
+                        <li class="nav-item ">
+                            <a href="/Admin/MusicCreate" class="nav-link">Müzik Ekle</a>
+                        </li>
+                        <li class="nav-item ">
+                            <a href="/Admin/AdminMusicList" class="nav-link">Admin Müzik Listesi</a>
+                        </li>
+                    }
+
+                }
+            </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+
+                        <li class="nav-item">
+                            <a asp-controller="Music" asp-action="Index" class="nav-link">@User.Identity.Name</a>
+                        </li>
+
+
+                        <li class="nav-item">
+                            <a asp-controller="Account" asp-action="Logout" class="nav-link">Çıkış Yap</a>
+                        </li>
+                    }
+                </ul>
+
+            </div>
     </div>
 </nav>

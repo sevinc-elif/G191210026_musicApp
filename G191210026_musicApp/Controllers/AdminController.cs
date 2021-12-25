@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace G191210026_musicApp.Controllers
 {
-    
+    [Authorize(Roles ="admin")]
     public class AdminController : Controller
     {
         private readonly MusicContext _context;

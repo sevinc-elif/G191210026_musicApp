@@ -1,6 +1,8 @@
 ﻿using G191210026_musicApp.Data;
 using G191210026_musicApp.Entity;
 using G191210026_musicApp.Models;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -8,29 +10,30 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace G191210026_musicApp.Controllers
 {
-    public class HomeController : Controller
+    public class AccountController : Controller
     {
 
         private UserManager<User> userManager;
         private SignInManager<User> signInManager;
 
-        public HomeController(UserManager<User> _userManager, SignInManager<User> _signInManager)
+        public AccountController(UserManager<User> _userManager, SignInManager<User> _signInManager)
         {
             userManager = _userManager;
             signInManager = _signInManager;
         }
-        public IActionResult Index()
+        public IActionResult Login(string returnUrl)
         {
-           
+            ViewBag.returnUrl = returnUrl;
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Index(LoginModel model)
+        public async Task<IActionResult> Login(LoginModel model, string returnUrl)
         {
             if (ModelState.IsValid)
             {
@@ -41,7 +44,7 @@ namespace G191210026_musicApp.Controllers
                     var result = await signInManager.PasswordSignInAsync(user, model.Password, false, false);
                     if (result.Succeeded)
                     {
-                        return RedirectToAction("Index","Music");
+                        return Redirect(returnUrl ?? "/Music/Index");
                     }
                 }
                 ModelState.AddModelError("", "hatalı kullanıcı adı ya da şifre girdiniz");
@@ -66,7 +69,7 @@ namespace G191210026_musicApp.Controllers
                 var result = await userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Login", "Account");
                 }
                 else
                 {
@@ -78,6 +81,11 @@ namespace G191210026_musicApp.Controllers
                 }
             }
             return View(model);
+        }
+        public async Task<IActionResult> Logout()
+        {
+            await signInManager.SignOutAsync();
+            return RedirectToAction("Login","Account");
         }
     }
 }

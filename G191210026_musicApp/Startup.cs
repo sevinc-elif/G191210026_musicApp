@@ -1,5 +1,6 @@
 using G191210026_musicApp.Data;
 using G191210026_musicApp.Entity;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -17,16 +18,18 @@ namespace G191210026_musicApp
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; set; }
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
+        
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
             services.AddDbContext<MusicContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("MsSQLConnection")));
 
@@ -41,7 +44,6 @@ namespace G191210026_musicApp
                 options.Password.RequireDigit = false;
                 
             })
-            
                 .AddEntityFrameworkStores<MusicContext>()
                 .AddDefaultTokenProviders();
 
@@ -57,6 +59,7 @@ namespace G191210026_musicApp
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                
             }
             else
             {
@@ -75,8 +78,10 @@ namespace G191210026_musicApp
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Account}/{action=Login}/{id?}");
             });
+            
+
         }
     }
 }
