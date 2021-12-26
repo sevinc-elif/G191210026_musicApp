@@ -18,5 +18,8 @@ namespace G191210026_musicApp.Entity
         public Music Music { get; set; }
 
         public int MusicId { get; set; }
+
+        [Required]
+        public string UserName { get; set; }
     }
 }

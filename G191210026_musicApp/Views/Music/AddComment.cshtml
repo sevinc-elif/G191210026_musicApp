@@ -3,7 +3,13 @@
 <form method="post" asp-controller="Music" asp-action="AddComment">
     <div class="row">
         <div class="col-md-8">
-            <input type="hidden" name="MusicId" value="@Model.MusicId" />
+            <div class="text-danger" asp-validation-summary="All"></div>
+            <input type="hidden" name="MusicId" />
+            <div class="mb-3">
+                <label asp-for="UserName">İsminiz</label>
+                <input asp-for="UserName" class="form-control"/>
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
             <div class="mb-3">
                 <label asp-for="Comments">Yorumunuz</label>
                 <textarea asp-for="Comments" class="form-control"></textarea>

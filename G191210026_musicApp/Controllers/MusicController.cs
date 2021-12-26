@@ -70,27 +70,28 @@ namespace G191210026_musicApp.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult AddComment(Comment comment)
+        public IActionResult AddComment(Comment comment,int id)
         {
             comment.DateTime = DateTime.Now;
+            comment.MusicId = id;
             _context.Comments.Add(comment);
             _context.SaveChanges();
             return RedirectToAction("Comment", "Music", new { @id = comment.MusicId });
             
         }
-        //public IActionResult Comment(int musicId)
-        //{
-            
-        //    var comments = _context.Comments.AsQueryable();
-                
-            
-        //    var model = new CommentsViewModel()
-        //    {
-        //        Comments = comments.ToList()
+        public IActionResult Comment(int? id)
+        {
 
-        //    };
-        //    return View(model);
-            
-        //}
+            var comments = _context.Comments.AsQueryable();
+            comments = comments.Where(i => i.MusicId == id);
+
+            var model = new CommentsViewModel()
+            {
+                Comments = comments.ToList()
+
+            };
+            return View(model);
+
+        }
     }
 }

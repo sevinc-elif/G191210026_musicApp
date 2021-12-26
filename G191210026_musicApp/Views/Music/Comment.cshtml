@@ -1,1 +1,27 @@
-﻿
+﻿@model CommentsViewModel
+@await Html.PartialAsync("_navbar")
+@if (Model.Comments.Count > 0)
+{
+    <h3>Yorumlar</h3>
+    <hr />
+    @foreach (var comment in Model.Comments)
+    {
+
+
+        <div class="card" style="width:900px;">
+
+            <div class="card-body">
+                <h5 class="card-title">@comment.UserName</h5>
+                <h6 class="card-subtitle mb-2 text-muted">@comment.DateTime</h6>
+                <p class="card-text">@comment.Comments</p>
+
+            </div>
+        </div>
+    }
+}
+else
+{
+    <div class="alert alert-warning">
+        Yorum bulunamadı.
+    </div>
+}
